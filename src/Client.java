@@ -2,6 +2,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Client {
         int serverPort = Integer.parseInt(args[1]);
 
         Scanner keyboard = new Scanner(System.in);
-        String message = keyboard.nextLine();
+        String message = "";
 
         DatagramSocket socket = new DatagramSocket();
 
@@ -36,7 +37,11 @@ public class Client {
                 reply.getData(),
                 reply.getLength()
         );
+        int value = ByteBuffer.wrap(serverMessage).getInt();
+        long unsignedValue = Integer.toUnsignedLong(value);
 
-        System.out.println(new String(serverMessage));
+        System.out.println(unsignedValue);
+
+
     }
 }
